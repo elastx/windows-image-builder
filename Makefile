@@ -15,10 +15,10 @@ clean:
 clean-cache:
 	rm -rf /root/.cache/packer/
 
-build-windwos-2022:
+build-windows-2022:
 	PACKER_LOG=1 packer build windows-2022.json
 
-build-windwos-2019:
+build-windows-2019:
 	PACKER_LOG=1 packer build windows-2019.json
 
 all: clean clean-cache install_deps prepare build
