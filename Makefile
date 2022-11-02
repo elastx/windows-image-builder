@@ -1,4 +1,4 @@
-default: clean install_deps prepare build
+default: clean install_deps build
 
 prepare:
 	packer init build-cloudimg.pkr.hcl
