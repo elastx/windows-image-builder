@@ -2,6 +2,9 @@ default: clean install_deps prepare
 
 prepare:
 	packer init build-cloudimg.pkr.hcl
+	curl -L -o /tmp/virtio-win.iso https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/latest-virtio/virtio-win.iso
+	xorriso -report_about WARNING -osirrox on -indev /tmp/virtio-win.iso -extract / ./packer_cache/virtio-win
+	find ./packer_cache/virtio-win -type d -exec chmod u+rwx {} \;
 
 install_deps:
 	curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add - && \
