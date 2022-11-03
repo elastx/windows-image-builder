@@ -35,7 +35,10 @@
       "winrm_timeout": "1h",
       "winrm_use_ssl": "true",
       "winrm_username": "Administrator",
-      "disk_compression": "true"
+      "disk_compression": "true",
+      "qemuargs": [
+        [ "--cpu", "host" ]
+      ]
     }
   ],
   "provisioners": [
