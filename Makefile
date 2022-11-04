@@ -7,7 +7,7 @@ endif
 ifdef ISO_CHECKSUM
 ISO_CHECKSUM := $(ISO_CHECKSUM)
 else
-ISO_CHECKSUM := 549bca46c055157291be6c22a3aaaed8330e78ef4382c99ee82c896426a1cee
+ISO_CHECKSUM := 549bca46c055157291be6c22a3aaaed8330e78ef4382c99ee82c896426a1cee1
 endif
 
 ifdef WIN_VERSION
@@ -37,6 +37,6 @@ clean-cache:
 	rm -rf /root/.cache/packer/
 
 build:
-	PACKER_LOG=1 packer build windows.json
+	PACKER_LOG=1 packer build packer build -var iso_url=$(ISO_URL) -var iso_checksum=$(ISO_CHECKSUM) -var win_version=$(WIN_VERSION) windows.json
 
 all: clean clean-cache install_deps prepare build
