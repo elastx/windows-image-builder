@@ -1,8 +1,8 @@
 {
   "variables": {
-    "iso_checksum": "",
-    "iso_url": "",
-    "windows_version": "",
+    "iso_checksum": "{{ env `ISO_CHECKSUM` }}",
+    "iso_url": "{{ env `ISO_URL` }}",
+    "windows_version": "{{ env `WINDOWS_VERSION` }}",
     "winrm_password": "s3cr3tbu1ldp4ssw0rd"
   },
   "builders": [

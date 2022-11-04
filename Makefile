@@ -37,6 +37,6 @@ clean-cache:
 	rm -rf /root/.cache/packer/
 
 build:
-	PACKER_LOG=1 packer build -var iso_url="$(ISO_URL)"  -var iso_checksum="$(ISO_CHECKSUM)" -var windows_version="$(WIN_VERSION)" windows.json
+	PACKER_LOG=1 packer build windows.json
 
 all: clean clean-cache install_deps prepare build
