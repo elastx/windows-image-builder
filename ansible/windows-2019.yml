@@ -2,6 +2,22 @@
 - hosts: all
 
   tasks:
+    - name: Download CloudbaseInit setup file
+      win_get_url:
+        url: https://cloudbase.it/downloads/CloudbaseInitSetup_1_1_2_x64.msi
+        dest: C:\CloudbaseInitSetup_1_1_2_x64.msi
+
+    - name: Install CloudbaseInit
+      win_msi:
+        path: C:\CloudbaseInitSetup_1_1_2_x64.msi
+        wait: yes
+        extra_args: "/qn"
+
+    - name: Remove CloudbaseInit setup file
+      win_file:
+        path: C:\Temp\foo.conf
+        state: absent
+
     - name: Install windows updates
       win_updates:
         category_names:
@@ -16,19 +32,3 @@
       win_reboot:
         reboot_timeout: 10000
       when: windows_updates.reboot_required and allow_windows_reboot_during_win_updates
-
-    - name: Download CloudbaseInit setup file
-      ansible.windows.win_get_url:
-        url: https://cloudbase.it/downloads/CloudbaseInitSetup_1_1_2_x64.msi
-        dest: C:\CloudbaseInitSetup_1_1_2_x64.msi
-
-    - name: Install CloudbaseInit
-      win_msi:
-        path: C:\CloudbaseInitSetup_1_1_2_x64.msi
-        wait: yes
-        extra_args: "/qn"
-
-    - name: Remove CloudbaseInit setup file
-      ansible.windows.win_file:
-        path: C:\Temp\foo.conf
-        state: absent
