@@ -59,7 +59,7 @@ build {
   provisioner "shell-local" {
     inline = [
       "sleep 120",
-      "ansible-playbook --connection=winrm --extra-vars='packer_build_name=windows-${var.win_version} ansible_password='${var.winrm_password}' ansible_winrm_server_cert_validation=ignore ansible_winrm_connection_timeout=1000 ansible_winrm_operation_timeout_sec=1000 ansible_winrm_read_timeout_sec=1000' -i 127.0.0.1, ansible/windows-${var.win_version}.yml"
+      "ansible-playbook --connection=winrm --extra-vars='packer_build_name=windows-${var.win_version} ansible_password='${var.winrm_password}' ansible_winrm_server_cert_validation=ignore ansible_winrm_connection_timeout=1000 ansible_winrm_operation_timeout_sec=1000 ansible_winrm_read_timeout_sec=1000' -i 127.0.0.1, ansible/windows-${var.win_version}.yml -vv"
     ]
     environment_vars = [
       "ANSIBLE_CONFIG=ansible/ansible.cfg",
