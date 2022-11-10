@@ -25,3 +25,5 @@
       ignore_errors: yes
       register: windows_updates
       until: windows_updates.installed_update_count == 0
+      retries: 20
+      delay: 30
