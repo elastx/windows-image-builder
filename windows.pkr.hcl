@@ -13,7 +13,7 @@ variable "win_version" {
   default = "2019"
 }
 
-variable "winrm_password" {
+variable "ssh_password" {
   type    = string
   default = "s3cr3tbu1ldp4ssw0rd"
 }
@@ -21,13 +21,14 @@ variable "winrm_password" {
 source "qemu" "windows" {
   accelerator       = "kvm"
   boot_wait         = "10s"
-  communicator      = "winrm"
+  communicator      = "ssh"
   cpus              = "4"
   disk_compression  = "true"
   disk_interface    = "virtio"
   disk_size         = "51200M"
   floppy_files      = [
     "http/windows-${var.win_version}/Autounattend.xml",
+    "scripts/win-common/setup-openssh.ps1",
     "scripts/win-common/unattend.xml",
     "scripts/win-common/sysprep.bat"
   ]
@@ -44,11 +45,9 @@ source "qemu" "windows" {
   shutdown_timeout  = "15m"
   skip_compaction   = "false"
   vm_name           = "windows-${var.win_version}"
-  winrm_insecure    = "true"
-  winrm_password    = "${var.winrm_password}"
-  winrm_timeout     = "1h"
-  winrm_use_ssl     = "true"
-  winrm_username    = "Administrator"
+  ssh_username      = "Administrator"
+  ssh_password      = "${var.ssh_password}"
+  ssh_timeout      = "1h"
   qemuargs          = [
     [ "--cpu", "host" ]
   ]
@@ -58,7 +57,7 @@ build {
   sources = ["source.qemu.windows"]
   provisioner "shell-local" {
     inline = [
-      "ansible-playbook --connection=winrm --extra-vars='packer_build_name=windows-${var.win_version} ansible_password='${var.winrm_password}' ansible_winrm_server_cert_validation=ignore ansible_winrm_connection_timeout=1000' -i 127.0.0.1:${build.Port}, ansible/windows-${var.win_version}.yml -vv"
+      "ansible-playbook --connection=ssh --extra-vars='ansible_password=${var.ssh_password}  ansible_shell_type=powershell' -i 127.0.0.1:${build.Port}, ansible/windows.yml -vv"
     ]
     environment_vars = [
       "ANSIBLE_CONFIG=ansible/ansible.cfg",

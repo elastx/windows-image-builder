@@ -28,8 +28,8 @@ install_deps:
 	curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add - && \
 	apt-add-repository -y "deb [arch=amd64] https://apt.releases.hashicorp.com focal main" && \
 	apt-get update && sudo apt-get install packer && \
-	apt-get install -y qemu-system-x86 xorriso python3-pip && \
-	pip3 install ansible pywinrm
+	apt-get install -y qemu-system-x86 xorriso sshpass python3-pip && \
+	pip3 install ansible
 
 clean:
 	rm -rf images
