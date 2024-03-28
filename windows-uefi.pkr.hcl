@@ -41,7 +41,7 @@ source "qemu" "windows" {
   efi_firmware_vars = "/usr/share/OVMF/OVMF_VARS_4M.ms.fd"
   machine_type      = "q35"
   floppy_files      = [
-    "http/windows-${var.win_version}-uefi/Autounattend.xml",
+    "http/windows-${var.win_version}/Autounattend.xml",
     "scripts/win-common/setup-openssh.ps1",
     "scripts/win-common/unattend.xml",
     "scripts/win-common/sysprep.bat"
