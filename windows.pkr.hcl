@@ -20,7 +20,7 @@ variable "ssh_password" {
 
 source "qemu" "windows" {
   accelerator       = "kvm"
-  boot_wait         = "10s"
+  boot_wait         = "1s"
   communicator      = "ssh"
   cpus              = "4"
   disk_compression  = "true"
@@ -49,7 +49,7 @@ source "qemu" "windows" {
   ssh_password      = "${var.ssh_password}"
   ssh_timeout      = "1h"
   qemuargs          = [
-    [ "--cpu", "host" ]
+    [ "--cpu", "Broadwell" ]
   ]
 }
 
