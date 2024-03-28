@@ -4,12 +4,12 @@
   tasks:
     - name: Download CloudbaseInit setup file
       ansible.windows.win_get_url:
-        url: https://cloudbase.it/downloads/CloudbaseInitSetup_1_1_2_x64.msi
-        dest: C:\CloudbaseInitSetup_1_1_2_x64.msi
+        url: https://cloudbase.it/downloads/CloudbaseInitSetup_1_1_4_x64.msi
+        dest: C:\CloudbaseInitSetup_1_1_4_x64.msi
 
     - name: Install CloudbaseInit
       ansible.windows.win_package:
-        path: C:\CloudbaseInitSetup_1_1_2_x64.msi
+        path: C:\CloudbaseInitSetup_1_1_4_x64.msi
         arguments:
           - /qn
 
@@ -20,12 +20,14 @@
 
     - name: Remove CloudbaseInit setup file
       ansible.windows.win_file:
-        path: C:\CloudbaseInitSetup_1_1_2_x64.msi
+        path: C:\CloudbaseInitSetup_1_1_4_x64.msi
         state: absent
 
     - name: Install windows updates
       ansible.windows.win_updates:
         category_names: '*'
+        reject_list:
+          - KB5034439  # This update requires a recovery partition which we don't have (https://support.microsoft.com/en-us/topic/kb5034439-windows-recovery-environment-update-for-windows-server-2022-january-9-2024-6f9d26e6-784c-4503-a3c6-0beedda443ca)
         reboot: yes
         reboot_timeout: 600
       register: windows_updates

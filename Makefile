@@ -40,4 +40,7 @@ clean-cache:
 build:
 	PACKER_LOG=1 packer build -var iso_url="$(ISO_URL)" -var iso_checksum="$(ISO_CHECKSUM)" -var win_version="$(WIN_VERSION)" windows.pkr.hcl
 
+build-uefi:
+	PACKER_LOG=1 packer build -var iso_url="$(ISO_URL)" -var iso_checksum="$(ISO_CHECKSUM)" -var win_version="$(WIN_VERSION)" windows-uefi.pkr.hcl
+
 all: clean clean-cache install_deps prepare build
