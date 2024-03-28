@@ -13,6 +13,11 @@
         arguments:
           - /qn
 
+    - name: Wait 300 seconds, but only start checking after 60 seconds
+      ansible.builtin.wait_for_connection:
+        delay: 60
+        timeout: 300
+
     - name: Remove CloudbaseInit setup file
       ansible.windows.win_file:
         path: C:\CloudbaseInitSetup_1_1_2_x64.msi
@@ -22,6 +27,6 @@
       ansible.windows.win_updates:
         category_names: '*'
         reboot: yes
-        reboot_timeout: 10000
+        reboot_timeout: 1800
       register: windows_updates
       until: windows_updates.installed_update_count == 0
