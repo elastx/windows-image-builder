@@ -63,7 +63,7 @@ source "qemu" "windows" {
   ssh_password      = "${var.ssh_password}"
   ssh_timeout      = "1h"
   qemuargs          = [
-    [ "--cpu", "Broadwell" ]
+    [ "--cpu", "EPYC-Milan-v1" ]
   ]
 }
 
