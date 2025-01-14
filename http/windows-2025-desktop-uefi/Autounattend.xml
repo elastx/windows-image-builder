@@ -82,7 +82,7 @@
                     <InstallFrom>
                         <MetaData wcm:action="add">
                             <Key>/IMAGE/INDEX</Key>
-                            <Value>1</Value>
+                            <Value>2</Value>
                             # Index 1 Windows Server 2025 Standard
                             # Index 2 Windows Server 2025 Standard (Desktop Experience)
                             # Index 3 Windows Server 2025 Datacenter
