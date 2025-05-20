@@ -14,10 +14,40 @@
         <component xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" language="neutral" name="Microsoft-Windows-PnpCustomizationsWinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" versionScope="nonSxS">
             <DriverPaths>
                 <PathAndCredentials wcm:action="add" wcm:keyValue="1">
-                    <Path>E:\packer_cache\virtio-win\NetKVM\2k16\amd64\</Path>
+                    <Path>E:\packer_cache\virtio-win\NetKVM\2k22\amd64\</Path>
+                </PathAndCredentials>
+                <PathAndCredentials wcm:action="add" wcm:keyValue="2">
+                    <Path>E:\packer_cache\virtio-win\viostor\2k22\amd64\</Path>
                 </PathAndCredentials>
                 <PathAndCredentials wcm:action="add" wcm:keyValue="3">
-                    <Path>E:\packer_cache\virtio-win\viostor\2k16\amd64\</Path>
+                    <Path>E:\packer_cache\virtio-win\vioscsi\2k22\amd64\</Path>
+                </PathAndCredentials>
+                <PathAndCredentials wcm:action="add" wcm:keyValue="4">
+                    <Path>E:\packer_cache\virtio-win\vioserial\2k22\amd64\</Path>
+                </PathAndCredentials>
+                <PathAndCredentials wcm:action="add" wcm:keyValue="5">
+                    <Path>E:\packer_cache\virtio-win\viorng\2k22\amd64\</Path>
+                </PathAndCredentials>
+                <PathAndCredentials wcm:action="add" wcm:keyValue="6">
+                    <Path>E:\packer_cache\virtio-win\viomem\2k22\amd64\</Path>
+                </PathAndCredentials>
+                <PathAndCredentials wcm:action="add" wcm:keyValue="7">
+                    <Path>E:\packer_cache\virtio-win\vioinput\2k22\amd64\</Path>
+                </PathAndCredentials>
+                <PathAndCredentials wcm:action="add" wcm:keyValue="8">
+                    <Path>E:\packer_cache\virtio-win\viogpudo\2k22\amd64\</Path>
+                </PathAndCredentials>
+                <PathAndCredentials wcm:action="add" wcm:keyValue="9">
+                    <Path>E:\packer_cache\virtio-win\viofs\2k22\amd64\</Path>
+                </PathAndCredentials>
+                <PathAndCredentials wcm:action="add" wcm:keyValue="10">
+                    <Path>E:\packer_cache\virtio-win\pvpanic\2k22\amd64\</Path>
+                </PathAndCredentials>
+                <PathAndCredentials wcm:action="add" wcm:keyValue="11">
+                    <Path>E:\packer_cache\virtio-win\fwcfg\2k22\amd64\</Path>
+                </PathAndCredentials>
+                <PathAndCredentials wcm:action="add" wcm:keyValue="12">
+                    <Path>E:\packer_cache\virtio-win\Balloon\2k22\amd64\</Path>
                 </PathAndCredentials>
             </DriverPaths>
         </component>
@@ -26,9 +56,9 @@
                 <Disk wcm:action="add">
                     <CreatePartitions>
                         <CreatePartition wcm:action="add">
-                            <Type>Primary</Type>
                             <Order>1</Order>
-                            <Size>350</Size>
+                            <Type>Primary</Type>
+                            <Size>512</Size>
                         </CreatePartition>
                         <CreatePartition wcm:action="add">
                             <Order>2</Order>
@@ -38,18 +68,18 @@
                     </CreatePartitions>
                     <ModifyPartitions>
                         <ModifyPartition wcm:action="add">
-                            <Active>true</Active>
-                            <Format>NTFS</Format>
-                            <Label>boot</Label>
                             <Order>1</Order>
                             <PartitionID>1</PartitionID>
+                            <Format>FAT32</Format>
+                            <Label>System</Label>
+                            <Active>true</Active>
                         </ModifyPartition>
                         <ModifyPartition wcm:action="add">
-                            <Format>NTFS</Format>
-                            <Label>Windows 2022</Label>
-                            <Letter>C</Letter>
                             <Order>2</Order>
                             <PartitionID>2</PartitionID>
+                            <Format>NTFS</Format>
+                            <Label>Windows</Label>
+                            <Letter>C</Letter>
                         </ModifyPartition>
                     </ModifyPartitions>
                     <DiskID>0</DiskID>
