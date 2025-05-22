@@ -73,6 +73,7 @@ build {
     inline = [
       "ansible-playbook --connection=ssh --extra-vars='ansible_password=${var.ssh_password}  ansible_shell_type=powershell' -i 127.0.0.1:${build.Port}, ansible/windows.yml -vv"
     ]
+    max_retries = 10
     environment_vars = [
       "ANSIBLE_CONFIG=ansible/ansible.cfg",
       "ANSIBLE_REMOTE_USER=Administrator"
