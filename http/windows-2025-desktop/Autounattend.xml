@@ -127,6 +127,10 @@
             <UILanguageFallback>en-US</UILanguageFallback>
             <UserLocale>en-US</UserLocale>
         </component>
+        <component xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" language="neutral" name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" versionScope="nonSxS">
+            <ComputerName>win2025</ComputerName>
+            <TimeZone>UTC</TimeZone>
+        </component>
         <component xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" language="neutral" name="Microsoft-Windows-ServerManager-SvrMgrNc" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" versionScope="nonSxS">
             <DoNotOpenServerManagerAtLogon>true</DoNotOpenServerManagerAtLogon>
         </component>
@@ -143,8 +147,6 @@
     </settings>
     <settings pass="oobeSystem">
         <component xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" language="neutral" name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" versionScope="nonSxS">
-            <ComputerName>win2025</ComputerName>
-            <TimeZone>UTC</TimeZone>
             <AutoLogon>
                 <Password>
                     <Value>s3cr3tbu1ldp4ssw0rd</Value>
