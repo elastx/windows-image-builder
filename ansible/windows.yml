@@ -28,6 +28,7 @@
         category_names: '*'
         reject_list:
           - KB5034439  # This update requires a recovery partition which we don't have (https://support.microsoft.com/en-us/topic/kb5034439-windows-recovery-environment-update-for-windows-server-2022-january-9-2024-6f9d26e6-784c-4503-a3c6-0beedda443ca)
+          - KB5060842  # This update can cause bsod in certain conditions
         reboot: yes
         reboot_timeout: 600
       register: windows_updates
