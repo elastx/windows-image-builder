@@ -25,8 +25,8 @@ prepare:
 	find ./packer_cache/virtio-win -type d -exec chmod u+rwx {} \;
 
 install_deps:
-	curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add - && \
-	apt-add-repository -y "deb [arch=amd64] https://apt.releases.hashicorp.com focal main" && \
+	wget -O - https://apt.releases.hashicorp.com/gpg | gpg --dearmor -o /etc/apt/keyrings/hashicorp-archive-keyring.gpg && \
+	echo "deb [signed-by=/etc/apt/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com jammy main" | tee /etc/apt/sources.list.d/hashicorp.list && \
 	apt-get update && sudo apt-get install packer && \
 	apt-get install -y qemu-system-x86 xorriso sshpass python3-pip && \
 	pip3 install ansible
