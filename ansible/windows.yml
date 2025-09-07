@@ -1,7 +1,28 @@
 ---
 - hosts: all
-
   tasks:
+    # Workaround for windows 2025 UEFI images to remove WinRE partition which has to be present during installation
+    - name: Get disk physical_disk and partition facts on the target
+      community.windows.win_disk_facts:
+        filter:
+          - partitions
+
+    - name: Print partition table
+      ansible.builtin.debug:
+        var: ansible_facts.disks[0].partitions
+
+    - name: Disable WinRE for UEFI servers
+      ansible.windows.win_command:
+        cmd: reagentc /disable
+      when: ansible_facts.disks[0].partitions | length > 3
+
+    - name: Remove WinRE partition if it exists
+      community.windows.win_partition:
+        disk_number: 0
+        partition_number: 4
+        state: absent
+      when: ansible_facts.disks[0].partitions | length > 3
+
     - name: Download CloudbaseInit setup file
       ansible.windows.win_get_url:
         url: https://cloudbase.it/downloads/CloudbaseInitSetup_1_1_6_x64.msi
