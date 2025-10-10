@@ -93,7 +93,7 @@
                             <PartitionID>3</PartitionID>
                             <Label>WinRE</Label>
                             <Format>NTFS</Format>
-                            <TypeID>de94bba4-06d1-4d40-a16a-bfd50179d6ac</TypeID>
+                            <TypeID>0x27</TypeID>
                         </ModifyPartition>
                     </ModifyPartitions>
                     <DiskID>0</DiskID>
