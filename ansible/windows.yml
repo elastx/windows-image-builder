@@ -20,7 +20,7 @@
     - name: Remove WinRE partition if it exists (always last)
       community.windows.win_partition:
         disk_number: 0
-        partition_number: ansible_facts.disks[0].partitions | length
+        partition_number: "{{ ansible_facts.disks[0].partitions | length }}"
         state: absent
       when: '"2025" in ansible_distribution' 
 
