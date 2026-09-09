@@ -35,7 +35,7 @@ source "qemu" "windows" {
   cpus              = "4"
   disk_compression  = "true"
   disk_interface    = "virtio"
-  disk_size         = "51200M"
+  disk_size         = "61440M"
   efi_boot          = "true"
   efi_firmware_code = "/usr/share/OVMF/OVMF_CODE_4M.secboot.fd"
   efi_firmware_vars = "/usr/share/OVMF/OVMF_VARS_4M.ms.fd"

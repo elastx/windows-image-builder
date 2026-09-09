@@ -25,7 +25,7 @@ source "qemu" "windows" {
   cpus              = "4"
   disk_compression  = "true"
   disk_interface    = "virtio"
-  disk_size         = "51200M"
+  disk_size         = "61440M"
   floppy_files      = [
     "http/windows-${var.win_version}/Autounattend.xml",
     "scripts/win-common/setup-openssh.ps1",
