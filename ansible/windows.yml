@@ -56,3 +56,34 @@
       register: windows_updates
       until: windows_updates.installed_update_count == 0
       retries: 10
+
+    # There is no working activation trigger in the deployed image on first
+    # boot: the built-in KMS client cycle retries every 2 hours, so machines
+    # that come up before the network/KMS/DNS is fully reachable stay
+    # unactivated until someone logs on and runs slmgr /ato manually. The
+    # boot task below runs the exact same command at every boot with retries.
+    # It is registered after the last reboot of the build so the boot trigger
+    # only ever fires on deployed machines, and it survives sysprep /generalize
+    # (unlike the activation state itself).
+    - name: Register boot task that activates the Windows license
+      community.windows.win_scheduled_task:
+        name: Activate-Windows
+        description: >-
+          Attempts Windows license activation (slmgr.vbs /ato) at every boot with
+          retries. Deployed machines can boot before the network/KMS is reachable
+          and the built-in activation cycle only retries every 2 hours.
+        actions:
+          - path: 'C:\Windows\System32\cscript.exe'
+            arguments: '/b C:\Windows\System32\slmgr.vbs /ato'
+        triggers:
+          - type: boot
+            delay: PT10M
+        username: SYSTEM
+        logon_type: service_account
+        run_level: highest
+        state: present
+        enabled: true
+        restart_count: 6
+        restart_interval: PT15M
+        execution_time_limit: PT10M
+        multiple_instances: 2
