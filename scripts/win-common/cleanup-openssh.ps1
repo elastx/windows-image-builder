@@ -83,8 +83,20 @@ catch {
 
 # The capability removal leaves the configuration directory behind: host keys
 # and sshd_config. Host keys are private key material instantiated in every
-# machine built from this image, so they must not ship.
-Remove-Item -Path (Join-Path $env:ProgramData 'ssh') -Recurse -Force -ErrorAction SilentlyContinue
-Write-Log 'Removed ProgramData ssh configuration (host keys, sshd_config)'
+# machine built from this image, so they must not ship. Verify the result so a
+# failed removal is visible in the log instead of being silently assumed.
+$SshConfigDir = Join-Path $env:ProgramData 'ssh'
+if (Test-Path -Path $SshConfigDir) {
+    Remove-Item -Path $SshConfigDir -Recurse -Force -ErrorAction SilentlyContinue
+    if (Test-Path -Path $SshConfigDir) {
+        Write-Log "FAILED to remove $SshConfigDir - check for locked files"
+    }
+    else {
+        Write-Log "Removed $SshConfigDir (host keys, sshd_config)"
+    }
+}
+else {
+    Write-Log "$SshConfigDir not present, nothing to remove"
+}
 
 Write-Log 'OpenSSH cleanup finished'
