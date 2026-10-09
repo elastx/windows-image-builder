@@ -43,6 +43,7 @@ source "qemu" "windows" {
   floppy_files      = [
     "http/windows-${var.win_version}/Autounattend.xml",
     "scripts/win-common/setup-openssh.ps1",
+    "scripts/win-common/cleanup-openssh.ps1",
     "scripts/win-common/unattend.xml",
     "scripts/win-common/sysprep.bat"
   ]
@@ -56,7 +57,8 @@ source "qemu" "windows" {
   net_device        = "virtio-net"
   output_directory  = "images"
   shutdown_command  = "A:\\sysprep.bat"
-  shutdown_timeout  = "15m"
+  # Room for the OpenSSH cleanup (DISM capability removal) before sysprep runs
+  shutdown_timeout  = "30m"
   skip_compaction   = "false"
   vm_name           = "windows-${var.win_version}"
   ssh_username      = "Administrator"
