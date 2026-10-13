@@ -57,21 +57,13 @@
       until: windows_updates.installed_update_count == 0
       retries: 10
 
-    # Security-critical: deployed machines must never start their build-time
-    # SSH server - sshd autostarts with the well-known build password set by
-    # the unattend files. Disabling only the startup type leaves the running
-    # service (and with it this play's connection and Packer's shutdown
-    # command) untouched, while every machine built from this image boots with
-    # no listener on port 22. Must not carry ignore_errors: an image that
-    # still autostarts sshd would expose SSH on every deployed instance.
+    # sshd would autostart on deployed machines with the known build password
     - name: Disable sshd autostart on the deployed image
       ansible.windows.win_service:
         name: sshd
         start_mode: disabled
 
-    # ssh-agent is useless without sshd but is disabled for hygiene. Not
-    # every build variant creates the service at all - absence achieves the
-    # same goal - but a failure on an existing service still fails the build.
+    # The ssh-agent service does not exist on all build variants - skip when absent
     - name: Check if ssh-agent service exists
       ansible.windows.win_service_info:
         name: ssh-agent
