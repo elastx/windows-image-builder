@@ -56,3 +56,26 @@
       register: windows_updates
       until: windows_updates.installed_update_count == 0
       retries: 10
+
+    # Registered after the build's last reboot: the boot trigger only ever
+    # fires on deployed machines, and the task survives sysprep /generalize
+    # (the activation state does not).
+    - name: Register boot task that activates the Windows license
+      community.windows.win_scheduled_task:
+        name: Activate-Windows
+        description: Attempts Windows license activation (slmgr.vbs /ato) at every boot, with retries in case the network or KMS is not reachable yet.
+        actions:
+          - path: 'C:\Windows\System32\cscript.exe'
+            arguments: '/b C:\Windows\System32\slmgr.vbs /ato'
+        triggers:
+          - type: boot
+            delay: PT10M
+        username: SYSTEM
+        logon_type: service_account
+        run_level: highest
+        state: present
+        enabled: true
+        restart_count: 6
+        restart_interval: PT15M
+        execution_time_limit: PT10M
+        multiple_instances: 2
