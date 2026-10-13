@@ -56,3 +56,21 @@
       register: windows_updates
       until: windows_updates.installed_update_count == 0
       retries: 10
+
+    # sshd would autostart on deployed machines with the known build password
+    - name: Disable sshd autostart on the deployed image
+      ansible.windows.win_service:
+        name: sshd
+        start_mode: disabled
+
+    # The ssh-agent service does not exist on all build variants - skip when absent
+    - name: Check if ssh-agent service exists
+      ansible.windows.win_service_info:
+        name: ssh-agent
+      register: ssh_agent_service
+
+    - name: Disable ssh-agent autostart on the deployed image
+      ansible.windows.win_service:
+        name: ssh-agent
+        start_mode: disabled
+      when: ssh_agent_service.exists
