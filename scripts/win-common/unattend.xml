@@ -23,6 +23,18 @@
                     <Order>1</Order>
                     <Path>net user administrator /active:yes</Path>
                 </RunSynchronousCommand>
+                <RunSynchronousCommand wcm:action="add">
+                    <Order>2</Order>
+                    <Path>cmd /c "netsh advfirewall firewall delete rule name=all dir=in protocol=tcp localport=22 &gt;&gt;C:\Windows\Temp\openssh-cleanup.log 2&gt;&amp;1"</Path>
+                </RunSynchronousCommand>
+                <RunSynchronousCommand wcm:action="add">
+                    <Order>3</Order>
+                    <Path>cmd /c "reg delete HKLM\SOFTWARE\OpenSSH /v DefaultShell /f &gt;&gt;C:\Windows\Temp\openssh-cleanup.log 2&gt;&amp;1"</Path>
+                </RunSynchronousCommand>
+                <RunSynchronousCommand wcm:action="add">
+                    <Order>4</Order>
+                    <Path>cmd /c "rd /s /q C:\ProgramData\ssh &gt;&gt;C:\Windows\Temp\openssh-cleanup.log 2&gt;&amp;1"</Path>
+                </RunSynchronousCommand>
             </RunSynchronous>
         </component>
     </settings>
